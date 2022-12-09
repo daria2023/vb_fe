@@ -4,7 +4,7 @@
         <header>
             <div class="user-related">
                 <div class="avatar">
-                    <router-link :to="userLink">
+                    <router-link :to="userLink" class="userLink">
                         <img :src="user?.avatar" alt="avt" />
                     </router-link>
                 </div>
@@ -144,9 +144,7 @@ a {
     color: #333;
 }
 
-a:hover {
-    color: var(--color-yellow);
-}
+
 .cmt {
     display: flex;
     gap: 3px;

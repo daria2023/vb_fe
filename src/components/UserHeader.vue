@@ -38,5 +38,6 @@ img {
     position: absolute;
     top: calc(100px - 1rem);
     left: calc(100px + 2rem);
+    text-transform: capitalize;
 }
 </style>
