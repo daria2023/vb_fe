@@ -80,5 +80,6 @@ img {
     height: 1.5rem;
     border-radius: 50%;
     cursor: pointer;
+    object-fit: cover;
 }
 </style>
