@@ -15,7 +15,6 @@ export default {
             state.posts = state.posts.filter(p => p.id !== payload.id)
         },
         fetchPosts(state, payload) {
-            console.log('change')
             state.posts = payload;
         }
     },
@@ -39,7 +38,7 @@ export default {
                 await instance.delete(`/posts/${payload.id}`)
                 context.dispatch('fetchAllPosts')
             } catch (error) {
-                
+                console.log(error)
             }
             context.commit('deletePost', payload)
         },
