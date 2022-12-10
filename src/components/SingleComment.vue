@@ -70,6 +70,7 @@ export default {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
+    object-fit: cover;
 }
 .userName {
     font-size: 0.8rem;

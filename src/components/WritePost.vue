@@ -8,7 +8,10 @@
                     <label for="upload-pic"><i class="fa-regular fa-image"></i></label>
                     <input id='upload-pic' type="file" style="display:none" accept="image/*" @change="handlePicture"/>
                 </div>
-                <i class="fa-regular fa-face-smile"></i>
+                <div>
+                    <i class="fa-regular fa-face-smile" @click="toggleEmoji"></i>
+                    <emoji-picker v-if="emojiOpen" @emojiClick="handleEmoji" compilerOptions.isCustomElement.></emoji-picker>
+                </div>              
             </div>
             <base-button type="submit" mode="button">
             post
@@ -18,14 +21,17 @@
             <div class="upload-container">
                 <img :src="picUpload" />
                 <i class="fa-solid fa-xmark" @click="closePreview"></i>
-            </div>          
+            </div>     
+            <span class="uploadInfo">
+                <p> Sorry! This func is not open...</p>
+            </span>     
         </div>
     </form>
 </base-box>
 </template>
 
 <script>
-import instance from '../axiosInstance';
+import 'emoji-picker-element';
 
 export default {
     
@@ -34,6 +40,7 @@ export default {
             userInput: '',
             picSelected: false,
             picUpload:null,
+            emojiOpen:false,
         }
     },
     methods: {
@@ -53,6 +60,12 @@ export default {
         },
         closePreview(){
             this.picSelected = false;
+        },
+        toggleEmoji(){
+            this.emojiOpen = !this.emojiOpen
+        },
+        handleEmoji(e){
+            this.userInput = this.userInput + e.detail.unicode
         }
     }
 }
@@ -113,5 +126,8 @@ i.fa-xmark {
     position: absolute;
     top:0px;
     left:0px;
+}
+emoji-picker {
+    position: absolute;
 }
 </style>

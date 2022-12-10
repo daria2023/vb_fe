@@ -1,11 +1,13 @@
 <template>
     <main>
-        <form @submit.prevent="handleLogin">
+        <the-loader v-if="loading"></the-loader>
+        <form @submit.prevent="handleLogin" v-else>
             <input type="text" v-model="userName" placeholder="enter userName..."/>
             <input type="password" v-model="password" placeholder="password here..." />
             <base-button type='submit' mode="button">login</base-button>
             <p>New user here? <router-link to='/reg'>Sign up</router-link></p>
             <p v-if="emptyCheck">Please check you filled all blanks...</p>
+            <p v-if="loadErr" class="err">⚠️There is something wrong, pls check again...</p>
         </form>
 
     </main>
@@ -13,19 +15,27 @@
 
 <script>
 import instance from '../axiosInstance'
+import TheLoader from '../UI/TheLoader.vue'
 
 export default {
+    components:{
+        TheLoader,
+    },
     data(){
         return {
             userName:'',
             password:'',
             emptyCheck:false,
+            loading:false,
+            loadErr:false,
         }
     },
     methods:{
         async handleLogin (){
             if(this.userName && this.password) {
+                this.loadErr = false
                 this.emptyCheck = false
+                this.loading = true
                 try {
                     const res = await instance.post('/auth/login',{
                         userName:this.userName,
@@ -35,9 +45,11 @@ export default {
                         user:res.data
                     })
                 this.$router.push('/')
-
+                this.loading = false
                 } catch (error) {
                     console.log(error)
+                    this.loading = false;
+                    this.loadErr = true;
                 }
                 
             } else {
@@ -88,4 +100,6 @@ p {
 a {
     color: #eee;
 }
+
+
 </style>
