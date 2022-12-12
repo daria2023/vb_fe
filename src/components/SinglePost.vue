@@ -22,10 +22,12 @@
             <p>{{ post.content }}</p>
         </div>
         <footer>
-            <i class="fa-regular fa-heart "></i>
+            <div>
+                <i class="fa-regular fa-heart " @click="toggleLike" :class="{'liked': likeIcon }"></i>
+            </div>
             <router-link :to="singleLink" class="cmt">
-                <i class="fa-regular fa-comment "></i>
-                <span class="cmt-num">{{post.comments.length === 0 ? '': post.comments.length}}</span>
+                <i class="fa-regular fa-comment"></i>
+                <span class="cmt-num">{{ post.comments.length === 0 ? '' : post.comments.length }}</span>
             </router-link>
             <div class="copy-icon">
                 <i class="fa-regular fa-clipboard" @click="copyContent"></i>
@@ -45,6 +47,7 @@ export default {
             delete: false,
             copied: false,
             user: null,
+            likeIcon: null,
         }
     },
     computed: {
@@ -60,10 +63,15 @@ export default {
         },
         userLink() {
             return '/users/' + this.user?._id;
+        },
+        userLike(){
+            return this.post?.likes?.includes(this.authedUser?._id) ? true : false
         }
+        
     },
     created() {
         this.getUser();
+        this.likeIcon = this.post?.likes?.includes(this.authedUser?._id) ? true : false;
     },
     methods: {
         toggleDelete() {
@@ -85,8 +93,14 @@ export default {
             navigator.clipboard.writeText(this.post.content)
         },
         async getUser() {
-            const res = await instance.get('/auth/' + this.post.userId);
-            this.user = res.data
+            const res = await instance.get('/auth/' + this.post?.userId);
+            this.user = res.data;
+        },
+        async toggleLike() {
+            await instance.put('/posts/likes/' + this.post._id, {
+                userId: this.authedUser._id
+            });
+            this.likeIcon = !this.likeIcon
         }
     }
 }
@@ -124,6 +138,7 @@ header {
     flex-direction: column;
     gap: 5px;
 }
+
 span.user-name {
     text-transform: capitalize;
 }
@@ -139,6 +154,7 @@ footer {
     justify-content: space-between;
     padding: 0 5px;
 }
+
 a {
     text-decoration: none;
     color: #333;
@@ -163,8 +179,12 @@ i {
     color: var(--color-red);
 }
 
-.fa-comment:hover,
-.cmt-num:hover {
+i.liked {
+    color: var(--color-red);
+}
+
+
+.cmt:hover {
     color: var(--color-green);
 }
 
@@ -195,6 +215,4 @@ p.copy {
     font-size: 0.8rem;
     color: var(--color-blue);
 }
-
-
 </style>
