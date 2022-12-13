@@ -22,8 +22,9 @@
             <p>{{ post.content }}</p>
         </div>
         <footer>
-            <div>
+            <div class="like">
                 <i class="fa-regular fa-heart " @click="toggleLike" :class="{'liked': likeIcon }"></i>
+                <span class="like-num">{{ likeNum === 0 ? '' : likeNum }}</span>
             </div>
             <router-link :to="singleLink" class="cmt">
                 <i class="fa-regular fa-comment"></i>
@@ -48,6 +49,7 @@ export default {
             copied: false,
             user: null,
             likeIcon: null,
+            likeNum: null,
         }
     },
     computed: {
@@ -72,6 +74,7 @@ export default {
     created() {
         this.getUser();
         this.likeIcon = this.post?.likes?.includes(this.authedUser?._id) ? true : false;
+        this.likeNum = this.post?.likes.length;
     },
     methods: {
         toggleDelete() {
@@ -97,10 +100,17 @@ export default {
             this.user = res.data;
         },
         async toggleLike() {
-            await instance.put('/posts/likes/' + this.post._id, {
+            const res = await instance.put('/posts/likes/' + this.post._id, {
                 userId: this.authedUser._id
             });
+            const likeResult = await res.data
             this.likeIcon = !this.likeIcon
+            if(likeResult === 'post has been disliked'){
+                this.likeNum--;
+            } 
+            if(likeResult === 'post has been liked') {
+                this.likeNum++;
+            }
         }
     }
 }
@@ -161,21 +171,26 @@ a {
 }
 
 
-.cmt {
+.cmt,
+.like {
     display: flex;
-    gap: 3px;
+    gap: 8px;
     align-items: center;
+    justify-content: center;
 }
 
-.cmt-num {
-    font-size: 0.75rem;
+.cmt-num,
+.like-num {
+    font-size: 0.8rem;
+    color: #666;
+    font-family: sans-serif;
 }
 
 i {
     cursor: pointer;
 }
 
-.fa-heart:hover {
+.like:hover {
     color: var(--color-red);
 }
 

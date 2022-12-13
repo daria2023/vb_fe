@@ -1,8 +1,9 @@
 <template>
-    <single-post :post="targetPost"></single-post> 
-    <post-comments :cmts="targetPost.comments">
 
+    <single-post :post="targetPost"></single-post>
+    <post-comments :cmts="targetPost.comments">
     </post-comments>
+
 </template>
 
 <script>
@@ -19,7 +20,7 @@ export default {
             targetPost: null,
         }
     },
-    created(){
+    created() {
         this.findPost(this.$route.params.postId)
     },
     methods: {
@@ -27,7 +28,7 @@ export default {
             const posts = this.$store.getters['posts/posts']
             const post = posts.find(p => p._id === id);
             this.targetPost = post
-        }
+        },
     },
     watch: {
         $route(value) {

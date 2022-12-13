@@ -30,7 +30,7 @@ export default {
                 postId: this.postId,
                 userId: this.userId,
             })
-             this.$router.push('/')
+            this.$router.push('/')
         },
     }
 }

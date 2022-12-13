@@ -90,6 +90,9 @@ input {
     padding: 5px;
     border-radius: 3px;
 }
+input::placeholder {
+    color: #820bbb;
+}
 input.err {
     border: 1px solid red;
 }
@@ -100,6 +103,7 @@ p {
 a {
     color: #eee;
 }
+
 
 
 </style>

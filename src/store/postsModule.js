@@ -33,7 +33,6 @@ export default {
             }
         },
         async delPost(context, payload) {
-            console.log('del', payload)
             try {
                 await instance.delete(`/posts/${payload.id}`)
                 context.dispatch('fetchAllPosts')
