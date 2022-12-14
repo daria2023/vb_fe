@@ -88,6 +88,7 @@ export default {
     border-left: 1px dotted var(--color-gray);
     padding:0 1rem;
     word-wrap:break-word;
+    word-break: break-all;
 }
 
 i {

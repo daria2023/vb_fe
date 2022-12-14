@@ -128,9 +128,9 @@ export default {
     position: absolute;
     top: -100px;
     width: 100px;
-    height:100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: none;
+    border: 1px dotted #666;
 }
 </style>
