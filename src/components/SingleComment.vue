@@ -6,7 +6,7 @@
     <div class="cmt">
         <span class="userName">{{user?.userName}}</span>
         <span class="postTime">{{ postDate }}</span>
-        <p>{{comment.content}}</p>
+        <pre>{{comment.content}}</pre>
     </div>
     <div class="del">       
         <i v-if="!minisize" class="fa-solid fa-compress" @click="setMini"></i>

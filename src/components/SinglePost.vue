@@ -19,7 +19,7 @@
             </div>
         </header>
         <div class="single-post-content">
-            <p>{{ post.content }}</p>
+            <pre>{{ post.content }}</pre>
         </div>
         <footer>
             <div class="like">
