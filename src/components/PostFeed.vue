@@ -20,5 +20,6 @@ export default {
 .posts {
     display: grid;
     grid-template-columns: 1fr;
+    width: 100%;
 }
 </style>
