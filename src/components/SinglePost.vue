@@ -121,7 +121,6 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    width: 100%;
 }
 
 header {
