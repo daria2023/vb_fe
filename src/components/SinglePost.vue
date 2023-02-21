@@ -19,7 +19,7 @@
             </div>
         </header>
         <div class="single-post-content">
-            <pre> <p>{{ post.content }}</p></pre>
+            <pre><p>{{ post.content }}</p></pre>
         </div>
         <footer>
             <div class="like">
@@ -232,7 +232,7 @@ p.copy {
 }
 
 .single-post-content pre{
-    white-space: pre-wrap;       /* css-3 */
+ white-space: pre-wrap;       /* css-3 */
  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
  white-space: -pre-wrap;      /* Opera 4-6 */
  white-space: -o-pre-wrap;    /* Opera 7 */
